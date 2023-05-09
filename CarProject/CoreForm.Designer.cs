@@ -48,6 +48,7 @@
             inputId.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             inputId.Location = new Point(93, 12);
             inputId.Name = "inputId";
+            inputId.ReadOnly = true;
             inputId.Size = new Size(151, 34);
             inputId.TabIndex = 0;
             // 
@@ -166,6 +167,8 @@
             CarGridView.RowTemplate.Height = 29;
             CarGridView.Size = new Size(518, 426);
             CarGridView.TabIndex = 11;
+            CarGridView.RowHeaderMouseClick += CarGridView_RowHeaderMouseClick;
+            CarGridView.RowHeaderMouseDoubleClick += CarGridView_RowHeaderMouseDoubleClick;
             // 
             // CoreForm
             // 

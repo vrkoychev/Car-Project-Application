@@ -1,5 +1,6 @@
 namespace CarProject
 {
+    using Models;
     using Repositories.BrandRepository;
     using Repositories.CarRepository;
 
@@ -54,15 +55,67 @@ namespace CarProject
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
+            var selectedBrand = brandRepository.GetAllBrands
+                .SingleOrDefault(b => b.Name == inputBrands.Text);
 
+            var car = new Car()
+            {
+                Model = inputModel.Text,
+                Year = int.Parse(inputYear.Text),
+                BrandId = selectedBrand.Id
+            };
+
+            carRepository.Add(car);
+
+            ClearForm();
+            GetData();
+        }
+
+        private void ClearForm()
+        {
+            inputId.Text = string.Empty;
+            inputModel.Text = string.Empty;
+            inputYear.Text = string.Empty;
+            inputBrands.Text = string.Empty;
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            var selectedBrandId = brandRepository.GetAllBrands
+                .SingleOrDefault(b => b.Name == inputBrands.Text).Id;
 
+            var car = new Car()
+            {
+                Id = int.Parse(inputId.Text),
+                Model = inputModel.Text,
+                Year = int.Parse(inputYear.Text),
+                BrandId = selectedBrandId
+            };
+
+            carRepository.Update(car);
+            ClearForm();
+            GetData();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            var currentId = int.Parse(inputId.Text);
+
+            carRepository.Delete(currentId);
+            ClearForm();
+            GetData();
+        }
+
+        private void CarGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            inputId.Text = CarGridView.Rows[rowIndex].Cells[0].Value.ToString();
+            inputModel.Text = CarGridView.Rows[rowIndex].Cells[1].Value.ToString();
+            inputYear.Text = CarGridView.Rows[rowIndex].Cells[2].Value.ToString();
+            inputBrands.Text = CarGridView.Rows[rowIndex].Cells[3].Value.ToString();
+        }
+
+        private void CarGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
         }
