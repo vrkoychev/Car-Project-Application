@@ -13,6 +13,7 @@ namespace CarProject
         {
             carRepository = (ICarRepository)StartUp.ServiceProvider.GetService(typeof(ICarRepository));
             brandRepository = (IBrandRepository)StartUp.ServiceProvider.GetService(typeof(IBrandRepository));
+
             InitializeComponent();
             OnStart();
         }
@@ -65,9 +66,14 @@ namespace CarProject
                 BrandId = selectedBrand.Id
             };
 
-            carRepository.Add(car);
+            var carId = carRepository.Add(car);
 
             ClearForm();
+            this.Hide();
+
+            CarExtrasForm f2 = new CarExtrasForm(carId);
+            f2.ShowDialog();
+
             GetData();
         }
 

@@ -27,10 +27,12 @@
             .Include(x => x.CarExtras).ThenInclude(x => x.Extra)
             .AsNoTracking().SingleOrDefault(x => x.Model == model);
 
-        public void Add(Car car)
+        public int Add(Car car)
         {
             appDbContext.Cars.Add(car);
             appDbContext.SaveChanges();
+
+            return car.Id;
         }
 
         public void Update(Car car)
