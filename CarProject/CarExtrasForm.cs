@@ -37,8 +37,8 @@ namespace CarProject
         private void OnStart()
         {
             var extraNames = extraRepository.GetAllExtras.Select(b => b.Name).ToArray();
-            inputCarName.Text = carRepository.GetCarById(currentId).Model;
             comboExtraId.Items.AddRange(extraNames);
+            inputCarName.Text = carRepository.GetCarById(currentId).Model;
 
             manyToManyGrid.ColumnCount = 2;
             manyToManyGrid.Columns[0].Name = "Name";
@@ -48,6 +48,7 @@ namespace CarProject
         private void GetData()
         {
             manyToManyGrid.Rows.Clear();
+
             var carExtras = carExtraRepository.GetCarExtras(currentId);
             foreach (var carExtra in carExtras)
             {
@@ -72,6 +73,8 @@ namespace CarProject
             };
 
             carExtraRepository.Add(currentCarExtra);
+
+            GetData();
             MessageBox.Show("Great success!");
             comboExtraId.Text = string.Empty;
         }

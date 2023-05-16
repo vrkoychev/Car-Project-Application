@@ -31,6 +31,8 @@ namespace CarProject
                 .Select(b => b.Name).ToArray();
 
             inputBrands.Items.AddRange(brandNames);
+
+            GetData();
         }
 
         private void GetData()
@@ -123,7 +125,12 @@ namespace CarProject
 
         private void CarGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            int rowIndex = e.RowIndex;
+            int currentId = int.Parse(CarGridView.Rows[rowIndex].Cells[0].Value.ToString());
+            Hide();
 
+            CarExtrasForm f2 = new CarExtrasForm(currentId);
+            f2.ShowDialog();
         }
     }
 }

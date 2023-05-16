@@ -22,7 +22,7 @@
 
         public ICollection<CarExtra> GetCarExtras(int carId) => appDbContext.CarExtras
             .Include(x => x.Car)
-            .Include(x => x.ExtraId)
+            .Include(x => x.Extra)
             .Where(x => x.CarId == carId)
             .ToList();
     }
